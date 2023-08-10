@@ -1,0 +1,14 @@
+---
+# assumes raspberry pi 4b with 4GB of ram
+# TODO: smarter gpu memory limits. must have at least 256MB for gpu
+- name: configure gpu memory
+  ansible.builtin.shell:
+    cmd: raspi-config nonint do_memory_split 1024
+
+- name: raspberry pi update
+  ansible.builtin.shell:
+    cmd: rpi-update
+  environment:
+    SKIP_WARNING: "1"
+  notify:
+    - Reboot

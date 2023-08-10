@@ -1,0 +1,41 @@
+---
+- name: Add uv4l repo key
+  ansible.builtin.apt_key:
+    url: https://www.linux-projects.org/listing/uv4l_repo/lpkey.asc
+    state: present
+
+- name: configure uv4l repo
+  ansible.builtin.apt_repository:
+    state: present
+    filename: uv4l
+    repo: "deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main"
+
+- name: install uv4l
+  ansible.builtin.apt:
+    state: present
+    name:
+      - uv4l:armhf
+      - uv4l-raspicam:armhf
+      - uv4l-raspicam-extras:armhf
+      - uv4l-server:armhf
+      - uv4l-uvc:armhf
+      - uv4l-xscreen:armhf
+      - uv4l-mjpegstream:armhf
+      - uv4l-dummy:armhf
+      - uv4l-raspidisp:armhf
+      - uv4l-webrtc-armv6:armhf
+
+- name: configure uv4l
+  ansible.builtin.copy:
+    src: raspicam.conf
+    dest: /etc/uv4l/uv4l-raspicam.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart uv4l
+
+- name: enable uv4l at boot
+  ansible.builtin.service:
+    name: uv4l_raspicam
+    enabled: true
