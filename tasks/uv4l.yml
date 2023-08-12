@@ -14,16 +14,16 @@
   ansible.builtin.apt:
     state: present
     name:
-      - uv4l:armhf
-      - uv4l-raspicam:armhf
-      - uv4l-raspicam-extras:armhf
-      - uv4l-server:armhf
-      - uv4l-uvc:armhf
-      - uv4l-xscreen:armhf
-      - uv4l-mjpegstream:armhf
-      - uv4l-dummy:armhf
-      - uv4l-raspidisp:armhf
-      - uv4l-webrtc-armv6:armhf
+      - uv4l
+      - uv4l-raspicam
+      - uv4l-raspicam-extras
+      - uv4l-server
+      - uv4l-uvc
+      - uv4l-xscreen
+      - uv4l-mjpegstream
+      - uv4l-dummy
+      - uv4l-raspidisp
+      - "{{ uv4l_webrtc_package }}"
 
 - name: configure uv4l
   ansible.builtin.copy:

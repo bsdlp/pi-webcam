@@ -3,6 +3,7 @@
   become: true
 
   tasks:
+    - include_vars: "vars/{{ rpi_model }}.yml"
     - include_tasks: tasks/raspi-config.yml
     - include_tasks: tasks/uv4l.yml
 

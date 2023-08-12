@@ -1,0 +1,3 @@
+---
+rpi_gpu_mem_mb: 256
+uv4l_webrtc_package: uv4l-webrtc-armv6

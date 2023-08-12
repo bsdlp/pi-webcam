@@ -1,2 +1,2 @@
 [cameras]
-benchcam-1.catnet ansible_user=jchen
+benchcam-2.catnet ansible_user=jchen rpi_model=rpi_zero_w
