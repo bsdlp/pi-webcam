@@ -1,0 +1,19 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: pi_webcam
+  author: bsdlp
+  description: pi cam
+  license: "license (MIT)"
+  min_ansible_version: "2.15"
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
