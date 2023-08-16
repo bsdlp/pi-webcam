@@ -1,6 +1,6 @@
 ---
 - name: register pi model
-  when: ansible_local.sbc_model is not defined
+  when: ansible_local.sbc is not defined
   block:
     - name: create facts directory
       ansible.builtin.file:
@@ -11,7 +11,7 @@
     - name: set sbc_model fact file
       ansible.builtin.copy:
         src: sbc_model.fact
-        dest: /etc/ansible/facts.d/sbc_model.fact
+        dest: /etc/ansible/facts.d/sbc.fact
         mode: 0755
         owner: root
         group: root
@@ -24,12 +24,12 @@
     file: rpi_4b.yml
 
 - name: raspberry pi 4b
-  when: ansible_local.sbc_model.startswith("Raspberry Pi 4 Model B")
+  when: ansible_local.sbc.model.startswith("Raspberry Pi 4 Model B")
   ansible.builtin.include_vars:
     file: rpi_4b.yml
 
 - name: raspberry pi zero w
-  when: ansible_local.sbc_model.startswith("Raspberry Pi Zero W")
+  when: ansible_local.sbc.model.startswith("Raspberry Pi Zero W")
   ansible.builtin.include_vars:
     file: rpi_zero_w.yml
 
