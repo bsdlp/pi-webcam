@@ -1,20 +1,37 @@
 ---
 - name: register pi model
-  ansible.builtin.slurp:
-    src: /sys/firmware/devicetree/base/model
-  register: pi_model_string
+  creates: /etc/ansible/facts.d/sbc_model.fact
+  block:
+    - name: slurp model name
+      ansible.builtin.slurp:
+        src: /sys/firmware/devicetree/base/model
+      register: sbc_model
+
+    - name: create facts directory
+      ansible.builtin.file:
+        path: '/etc/ansible/facts.d'
+        state: directory
+        recurse: true
+
+    - name: set model fact
+      ansible.builtin.copy:
+        content: "{{ sbc_model.content | b64decode }}"
+        dest: /etc/ansible/facts.d/sbc_model.fact
+
+    - name: call setup again
+      ansible.builtin.setup:
 
 - name: set default values
   ansible.builtin.include_vars:
     file: rpi_4b.yml
 
 - name: raspberry pi 4b
-  when: pi_model_string.startswith("Raspberry Pi 4 Model B")
+  when: facts['sbc_model'].startswith("Raspberry Pi 4 Model B")
   ansible.builtin.include_vars:
     file: rpi_4b.yml
 
 - name: raspberry pi zero w
-  when: pi_model_strin.startswith("Raspberry Pi Zero W")
+  when: facts['sbc_model'].startswith("Raspberry Pi Zero W")
   ansible.builtin.include_vars:
     file: rpi_zero_w.yml
 
