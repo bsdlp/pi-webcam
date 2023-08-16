@@ -1,6 +1,6 @@
 ---
 - name: register pi model
-  when: facts['sbc_model'] is not defined
+  when: sbc_model is not defined
   block:
     - name: create facts directory
       ansible.builtin.file:
@@ -21,12 +21,12 @@
     file: rpi_4b.yml
 
 - name: raspberry pi 4b
-  when: facts['sbc_model'].startswith("Raspberry Pi 4 Model B")
+  when: sbc_model.startswith("Raspberry Pi 4 Model B")
   ansible.builtin.include_vars:
     file: rpi_4b.yml
 
 - name: raspberry pi zero w
-  when: facts['sbc_model'].startswith("Raspberry Pi Zero W")
+  when: sbc_model.startswith("Raspberry Pi Zero W")
   ansible.builtin.include_vars:
     file: rpi_zero_w.yml
 
