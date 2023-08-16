@@ -1,0 +1,22 @@
+---
+- name: register pi model
+  ansible.builtin.slurp:
+    src: /sys/firmware/devicetree/base/model
+  register: pi_model_string
+
+- name: set default values
+  ansible.builtin.include_vars:
+    file: rpi_4b.yml
+
+- name: raspberry pi 4b
+  when: pi_model_string.startswith("Raspberry Pi 4 Model B")
+  ansible.builtin.include_vars:
+    file: rpi_4b.yml
+
+- name: raspberry pi zero w
+  when: pi_model_strin.startswith("Raspberry Pi Zero W")
+  ansible.builtin.include_vars:
+    file: rpi_zero_w.yml
+
+- ansible.builtin.include_tasks: raspi-config.yml
+- ansible.builtin.include_tasks: uv4l.yml

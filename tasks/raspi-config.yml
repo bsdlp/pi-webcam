@@ -3,7 +3,7 @@
 # TODO: smarter gpu memory limits. must have at least 256MB for gpu
 - name: configure gpu memory
   ansible.builtin.shell:
-    cmd: raspi-config nonint do_memory_split {{ rpi_gpu_mem_mb }}
+    cmd: raspi-config nonint do_memory_split {{ rpi_gpu_mem_mb[rpi_model] }}
 
 - name: enable camera
   ansible.builtin.shell:
