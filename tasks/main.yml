@@ -1,6 +1,6 @@
 ---
 - name: register pi model
-  creates: /etc/ansible/facts.d/sbc_model.fact
+  when: facts['sbc_model'] is not defined
   block:
     - name: slurp model name
       ansible.builtin.slurp:
