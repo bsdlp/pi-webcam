@@ -12,6 +12,9 @@
       ansible.builtin.copy:
         src: sbc_model.fact
         dest: /etc/ansible/facts.d/sbc_model.fact
+        mode: 0755
+        owner: root
+        group: root
 
     - name: call setup again
       ansible.builtin.setup:
