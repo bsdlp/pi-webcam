@@ -2,20 +2,15 @@
 - name: register pi model
   when: facts['sbc_model'] is not defined
   block:
-    - name: slurp model name
-      ansible.builtin.slurp:
-        src: /sys/firmware/devicetree/base/model
-      register: sbc_model
-
     - name: create facts directory
       ansible.builtin.file:
         path: '/etc/ansible/facts.d'
         state: directory
         recurse: true
 
-    - name: set model fact
+    - name: set sbc_model fact file
       ansible.builtin.copy:
-        content: "{{ sbc_model.content | b64decode }}"
+        src: sbc_model.fact
         dest: /etc/ansible/facts.d/sbc_model.fact
 
     - name: call setup again

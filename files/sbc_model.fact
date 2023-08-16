@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "{\"sbc_model\" : \"$(tr -d '\0' < /sys/firmware/devicetree/base/model)\"}"
