@@ -19,6 +19,7 @@
     - name: call setup again
       ansible.builtin.setup:
 
+# parse sbc model to include the correct configuration variables
 - name: set default values
   ansible.builtin.include_vars:
     file: rpi_4b.yml
@@ -33,8 +34,6 @@
   ansible.builtin.include_vars:
     file: rpi_zero_w.yml
 
-# assumes raspberry pi 4b with 4GB of ram
-# TODO: smarter gpu memory limits. must have at least 256MB for gpu
 - name: configure gpu memory
   ansible.builtin.shell:
     cmd: raspi-config nonint do_memory_split {{ rpi_gpu_mem_mb }}
