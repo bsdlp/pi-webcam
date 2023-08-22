@@ -59,3 +59,24 @@
     install_recommends: false
     state: latest
     update_cache: true
+
+- name: place mjpeg_server.py
+  ansible.builtin.copy:
+    src: mjpeg_server.py
+    dest: /usr/local/bin/mjpeg_server.py
+    mode: '0755'
+  notify:
+    - Restart mjpeg_server
+
+- name: configure systemd unit for mjpeg_server
+  ansible.builtin.copy:
+    src: mjpeg_server.service
+    dest: /etc/systemd/system/mjpeg_server.service
+  notify:
+    - Reload systemd
+
+- name: enable mjpeg_server
+  ansible.builtin.systemd_service:
+    name: mjpeg_server.service
+    state: started
+    enabled: true

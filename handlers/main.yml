@@ -6,3 +6,12 @@
 - name: Reload udev
   ansible.builtin.shell:
     cmd: udevadm trigger
+
+- name: Reload systemd
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: Restart mjpeg_server
+  ansible.builtin.service:
+    name: mjpeg_server
+    state: restarted
