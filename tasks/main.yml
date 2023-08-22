@@ -34,4 +34,3 @@
     file: rpi_zero_w.yml
 
 - ansible.builtin.include_tasks: raspi-config.yml
-- ansible.builtin.include_tasks: uv4l.yml

@@ -1,9 +1,8 @@
 ---
-- name: Restart uv4l
-  ansible.builtin.service:
-    name: uv4l_raspicam
-    state: restarted
-
 - name: Reboot
   ansible.builtin.reboot:
     connect_timeout: 5
+
+- name: Reload udev
+  ansible.builtin.shell:
+    cmd: udevadm trigger
